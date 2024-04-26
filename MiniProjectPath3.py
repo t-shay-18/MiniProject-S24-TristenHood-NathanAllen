@@ -78,14 +78,15 @@ def OverallAccuracy(results, actual_values):
   for i, j in enumerate(results):
     if j == actual_values[i]:
       Accuracy += 1
-
-  return Accuracy
+  Accuracypercent =  Accuracy / len(actual_values) * 100
+  return Accuracy, Accuracypercent
 
 
 # Part 4
-Model1_Overall_Accuracy = OverallAccuracy(model1_results, y_test)
+Model1_Overall_Accuracy, Accuracy_percent1 = OverallAccuracy(model1_results, y_test)
 print("The overall results of the Gaussian model is " + str(Model1_Overall_Accuracy))
 ## print("Tot: " + str(len(model1_results)))
+print("Percentange correct " + str(Accuracy_percent1))
 
 
 #Part 5
@@ -101,17 +102,18 @@ print_numbers(allnumbers_images, allnumbers_labels)
 model_2 = KNeighborsClassifier(n_neighbors=10)
 model_2.fit(X_train_reshaped, y_train)
 model_2_results = model_2.predict(X_test_new)
-Model2_Overall_Accuracy = OverallAccuracy(model_2_results, y_test)
+Model2_Overall_Accuracy, Accuracy_percent2 = OverallAccuracy(model_2_results, y_test)
 print("The overall results of the KNN model is " + str(Model2_Overall_Accuracy))
+print("Percentange correct " + str(Accuracy_percent2))
 
 
 #Repeat for the MLP Classifier
 model_3 = MLPClassifier(random_state=0)
 model_3.fit(X_train_reshaped, y_train)
 model_3_results = model_3.predict(X_test_new)
-Model3_Overall_Accuracy = OverallAccuracy(model_3_results, y_test)
+Model3_Overall_Accuracy, Accuracy_percent3 = OverallAccuracy(model_3_results, y_test)
 print("The overall results of the MLP model is " + str(Model3_Overall_Accuracy)) 
-
+print("Percentange correct " + str(Accuracy_percent3))
 
 
 #Part 8
@@ -133,20 +135,23 @@ X_ttrain_poison_new = X_train_poison.reshape(X_train_poison.shape[0], -1)
 model_1 = GaussianNB()
 model_1.fit(X_ttrain_poison_new, y_train)
 model_1_results = model_1.predict(X_test_new)
-Model1_Overall_Accuracy = OverallAccuracy(model_1_results, y_test)
+Model1_Overall_Accuracy, Accuracy_percent1 = OverallAccuracy(model_1_results, y_test)
 print("The poisoned results of the Gaussian model is " + str(Model1_Overall_Accuracy))
+print("Percentange correct " + str(Accuracy_percent1))
 
 model_2 = KNeighborsClassifier(n_neighbors = 10)
 model_2.fit(X_ttrain_poison_new, y_train)
 model_2_results = model_2.predict(X_test_new)
-Model2_Overall_Accuracy = OverallAccuracy(model_2_results, y_test)
+Model2_Overall_Accuracy, Accuracy_percent2 = OverallAccuracy(model_2_results, y_test)
 print("The poisoned results of the KNN model is " + str(Model2_Overall_Accuracy))
+print("Percentange correct " + str(Accuracy_percent2))
 
 model_3 = MLPClassifier(random_state = 0)
 model_3.fit(X_ttrain_poison_new, y_train)
 model_3_results = model_3.predict(X_test_new)
-Model3_Overall_Accuracy = OverallAccuracy(model_3_results, y_test)
-print("The poisoned results of the MLP model is " + str(Model3_Overall_Accuracy)) 
+Model3_Overall_Accuracy, Accuracy_percent3 = OverallAccuracy(model_3_results, y_test)
+print("The poisoned results of the MLP model is " + str(Model3_Overall_Accuracy))
+print("Percentange correct " + str(Accuracy_percent3)) 
 
 #Part 12-13
 # Denoise the poisoned training data, X_train_poison. 
@@ -175,19 +180,21 @@ print_numbers(allnumbers_images, allnumbers_labels)
 model_1 = GaussianNB()
 model_1.fit(X_train_denoised, y_train)
 model_1_results = model_1.predict(X_test_new)
-Model1_Overall_Accuracy = OverallAccuracy(model_1_results, y_test)
+Model1_Overall_Accuracy, Accuracy_percent1 = OverallAccuracy(model_1_results, y_test)
 print("The denoised results of the Gaussian model is " + str(Model1_Overall_Accuracy))
+print("Percentange correct " + str(Accuracy_percent1))
 
 model_2 = KNeighborsClassifier(n_neighbors = 10)
 model_2.fit(X_train_denoised, y_train)
 model_2_results = model_2.predict(X_test_new)
-Model2_Overall_Accuracy = OverallAccuracy(model_2_results, y_test)
+Model2_Overall_Accuracy, Accuracy_percent2 = OverallAccuracy(model_2_results, y_test)
 print("The denoised results of the KNN model is " + str(Model2_Overall_Accuracy))
+print("Percentange correct " + str(Accuracy_percent2))
 
 model_3 = MLPClassifier(random_state = 0, max_iter =  1000)
 model_3.fit(X_train_denoised, y_train)
 model_3_results = model_3.predict(X_test_new)
-Model3_Overall_Accuracy = OverallAccuracy(model_3_results, y_test)
+Model3_Overall_Accuracy, Accuracy_percent3 = OverallAccuracy(model_3_results, y_test)
 print("The denoised results of the MLP model is " + str(Model3_Overall_Accuracy)) 
-
+print("Percentange correct " + str(Accuracy_percent3))
 # print_numbers(X_train_poison[0:20], allnumbers_labels)
