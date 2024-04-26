@@ -104,12 +104,14 @@ model_2_results = model_2.predict(X_test_new)
 Model2_Overall_Accuracy = OverallAccuracy(model_2_results, y_test)
 print("The overall results of the KNN model is " + str(Model2_Overall_Accuracy))
 
+
 #Repeat for the MLP Classifier
 model_3 = MLPClassifier(random_state=0)
 model_3.fit(X_train_reshaped, y_train)
 model_3_results = model_3.predict(X_test_new)
 Model3_Overall_Accuracy = OverallAccuracy(model_3_results, y_test)
 print("The overall results of the MLP model is " + str(Model3_Overall_Accuracy)) 
+
 
 
 #Part 8
@@ -121,6 +123,9 @@ poison = rng.normal(scale=noise_scale, size=X_train.shape)
 
 X_train_poison = X_train + poison
 
+# print("1:" +str(X_train_poison[0:9]))
+allnumbers_images, allnumbers_labels = dataset_searcher(allnumbers, X_train_poison, labels)
+print_numbers(allnumbers_images, allnumbers_labels)
 
 #Part 9-11
 #Determine the 3 models performance but with the poisoned training data X_train_poison and y_train instead of X_train and y_train
@@ -155,6 +160,10 @@ X_train_recon.fit(X_ttrain_poison_new)
 # X_train_denoised = X_train_recon.fit_inverse_transform(X_train_recon.transform(X_ttrain_poison_new))
 X_train_denoised = X_train_recon.inverse_transform(X_train_recon.fit_transform(X_ttrain_poison_new))
 # X_train_denoised = X_train_recon.fit_inverse_transform(X_train_recon.transform(X_ttrain_poison_new))
+x_train_denoised_print = X_train_denoised.reshape(X_train_denoised.shape[0], 8, 8)
+
+allnumbers_images, allnumbers_labels = dataset_searcher(allnumbers, x_train_denoised_print, labels)
+print_numbers(allnumbers_images, allnumbers_labels)
 
 #Part 14-15
 #Determine the 3 models performance but with the denoised training data, X_train_denoised and y_train instead of X_train_poison and y_train
